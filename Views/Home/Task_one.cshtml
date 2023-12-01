@@ -1,0 +1,28 @@
+﻿@{
+    ViewData["Title"] = "Завдання 1";
+}
+<h1 class="display-4">@ViewData["Title"]</h1>
+
+
+<p>
+    Створіть і запустіть базовий додаток ASP.NET Core, побудований
+    на основі ASP.NET Razor Pages. На вебсторінці виведіть номер
+    поточного дня року.
+</p>
+
+<table style="text-align: center;" class="table table-hover">
+    <thead>
+        <tr>
+            <th>Номер поточного дня року</th>
+         
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                @Model.DayOfYear
+            </td>
+           
+        </tr>
+    </tbody>
+</table>

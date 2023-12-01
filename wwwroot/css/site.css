@@ -1,0 +1,57 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+.style_rest {
+    text-align: center;
+}
+.style_rest th {
+      color:midnightblue
+}
+
+.style_rest thead{
+    background-color:aqua;
+}
+    .style_rest tbody {
+        background-color:aquamarine;
+    }
+
+
+
+
+.style_rest_country {
+}
+
+    .style_rest_country th {
+        color: yellow
+    }
+
+    .style_rest_country thead {
+        background-color:burlywood
+    }
+
+    .style_rest_country tbody {
+        background-color:azure;
+    }
+
+.style_centr {
+    text-align: center;
+}
+.country {
+    font-weight: bold;
+}
