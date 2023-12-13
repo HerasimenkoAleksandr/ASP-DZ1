@@ -1,0 +1,117 @@
+﻿@{
+    ViewData["Title"] = "Homework2";
+}
+<h1 class="display-4">Homework 2</h1>
+<ul>
+    <li>Д.З. Створити сервіс валідації даних</li>
+    <li>- інтерфейс IValidationService</li>
+    <li>- реалізацію MyValidationService</li>
+    <li>У рамках сервісу реалізувати методи валідації імені (IsNameValid), телефону та/або E-mail</li>
+    <li>Зареєструвати як Singleton, інжектувати до контролера/</li>
+    <li>Додати до форми поле введення телефону та/або E-mail/</li>
+    <li>Доповнити виведення даних щодо вмісту форми повідомленнями про валідність:</li>
+    <li>Ім'я: Тестун - валідне</li>
+    <li>Номер телефону: +38095-22-78-525 -  валіднй</li>
+    <li>Email:  testun_ukr.net - не валідне</li>
+    <li>поля різної валідності зробити різним стилем</li>
+</ul>
+
+
+    <h1 class="display-4">Заповніть форму</h1>
+<form method="post" , enctype="multipart/form-data" asp-action="ProcessHomework2">
+        <div class="row">
+            <div class="col">
+                <div class="input-group mb-3">
+                    <span class="input-group-text"
+                          id="login-addon"><i class="bi bi-person"></i></span>
+                    <input type="text" class="form-control"
+                       placeholder="введіть ім'я" aria-label="введіть ім'я"
+                       name="user-login"
+                           aria-describedby="login-addon">
+                </div>
+            </div>
+            <div class="col">
+                <div class="input-group mb-3">
+                    <span class="input-group-text"
+                      id="phone-addon"><i class="bi bi-person-vcard"></i></span>
+                    <input type="text" class="form-control"
+                       placeholder="введіть номер телефону" aria-label="введіть номер телефону"
+                       name="user-phone"
+                           aria-describedby="phone-addon">
+                </div>
+            </div>
+        
+            <div class="col">
+                <div class="input-group mb-3">
+                    <span class="input-group-text"
+                          id="email-addon"><i class="bi bi-envelope-at"></i></span>
+                      <input type="text" class="form-control"
+                       placeholder="введіть email" aria-label="введіть email"
+                       name="user-email"
+                           aria-describedby="email-addon">
+                </div>
+            </div>
+           
+        </div>
+              <div calss="row">
+            <div class="col">
+                <button class="btn btn-success" type="submit">
+                    Send
+                </button>
+            </div>
+        </div>
+    </form>
+
+<div class="mt-3">
+@if (Model.FormModel?.Login != null)
+{
+    @if ((bool)ViewData["isNameV"])
+    {
+            <h4 class="bg-success text-white">
+            Ім'я: @Model.FormModel.Login валідне
+        </h4>
+    }
+    else
+    {
+            <h4 class="bg-danger text-white">
+            Ім'я: @Model.FormModel.Login не валідне
+        </h4>
+    }
+}
+
+@if (Model.FormModel?.Phone != null)
+{
+    @if ((bool)ViewData["isNameP"])
+    {
+            <h4 class="bg-success text-white">
+            Номер телефону: @Model.FormModel.Phone валідний
+        </h4>
+    }
+    else
+    {
+            <h4 class="bg-danger text-white">
+            Номер телефону: @Model.FormModel.Phone не валідний
+        </h4>
+    }
+}
+
+@if (Model.FormModel?.Email != null)
+{
+    @if ((bool)ViewData["isNameE"])
+    {
+            <h4 class="bg-success text-white">
+            Email: @Model.FormModel.Email валідний
+             </h4>
+    }
+    else
+    {
+
+            <h4 class="bg-danger text-white"> Email: @Model.FormModel.Email не валідний</h4>
+   
+       
+    }
+}
+
+
+</div>
+
