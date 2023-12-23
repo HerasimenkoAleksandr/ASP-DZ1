@@ -1,11 +1,29 @@
+using ASP_DZ1.Data;
 using ASP_DZ1.Services.Validation;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Migrations;
+using MySqlConnector;
+
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Configuration.AddJsonFile("dbsettings.json");
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddSingleton<IValidationService, MyValidationService>();
+
+String? connectionString = builder.Configuration.GetConnectionString("PlanetScale");
+
+MySqlConnection connection = new MySqlConnection(connectionString);
+builder.Services.AddDbContext<DataContext>(options=>options.UseMySql(
+    connection,
+    ServerVersion.AutoDetect(connection),
+    serverOptions=>serverOptions.MigrationsHistoryTable(tableName: HistoryRepository.DefaultTableName,
+    schema: "ASP_DZ1").SchemaBehavior(Pomelo.EntityFrameworkCore.MySql.Infrastructure.MySqlSchemaBehavior.Translate,
+    (schema, table)=>$"{schema}_{table}")));
+
 
 builder.Services.AddDistributedMemoryCache();
 
