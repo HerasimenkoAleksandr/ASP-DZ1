@@ -4,7 +4,7 @@ namespace ASP_DZ1.Data
 {
     public class DataContext : DbContext
     {
-        public DbSet <Entities.User> User {  get; set; }
+        public DbSet <Entities.User> Users {  get; set; }
 
         public DataContext (DbContextOptions options) : base(options) { }
 

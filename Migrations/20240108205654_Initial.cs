@@ -12,26 +12,33 @@ namespace ASP_DZ1.Migrations
             migrationBuilder.EnsureSchema(
                 name: "ASP_DZ1");
 
-            /*migrationBuilder.AlterDatabase()
+           /*migrationBuilder.AlterDatabase()
                 .Annotation("MySql:CharSet", "utf8mb4");*/
 
             migrationBuilder.CreateTable(
-                name: "User",
+                name: "Users",
                 schema: "ASP_DZ1",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     Login = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
+                    Phone = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     Email = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Phone = table.Column<string>(type: "longtext", nullable: false)
+                    PasswordSalt = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    RegisterDT = table.Column<int>(type: "int", nullable: false)
+                    PassworkDk = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Avatar = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    RegisterDt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    DeleteDt = table.Column<DateTime>(type: "datetime(6)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_User", x => x.Id);
+                    table.PrimaryKey("PK_Users", x => x.Id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
         }
@@ -39,7 +46,7 @@ namespace ASP_DZ1.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "User",
+                name: "Users",
                 schema: "ASP_DZ1");
         }
     }

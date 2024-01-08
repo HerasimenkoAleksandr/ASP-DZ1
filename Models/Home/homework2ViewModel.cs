@@ -5,5 +5,7 @@ namespace ASP_DZ1.Models.Home
     {
 
         public homework2FormModel ?  FormModel { get; set; }
+        public homework3FormValidation? FormValidation { get; set; }
+        public bool? FormStatus { get; set; }
     }
 }

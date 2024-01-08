@@ -26,6 +26,12 @@ namespace ASP_DZ1.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
+                    b.Property<string>("Avatar")
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime?>("DeleteDt")
+                        .HasColumnType("datetime(6)");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("longtext");
@@ -34,16 +40,23 @@ namespace ASP_DZ1.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<string>("Phone")
+                    b.Property<string>("PasswordSalt")
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<int>("RegisterDT")
-                        .HasColumnType("int");
+                    b.Property<string>("PassworkDk")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Phone")
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("RegisterDt")
+                        .HasColumnType("datetime(6)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("User", "ASP_DZ1");
+                    b.ToTable("Users", "ASP_DZ1");
                 });
 #pragma warning restore 612, 618
         }

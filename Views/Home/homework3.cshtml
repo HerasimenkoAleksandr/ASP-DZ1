@@ -1,0 +1,103 @@
+﻿@{
+    ViewData["Title"] = "Homework3";
+}
+<h1 class="display-4">Реєстрація</h1>
+
+<form method="post" , enctype="multipart/form-data" asp-action="SignupForm">
+    <div class="row">
+        <div class="col">
+            <div class="input-group mb-3">
+                <span class="input-group-text"
+                      id="login-addon"><i class="bi bi-person"></i></span>
+                <input type="text" class="form-control"
+                       placeholder="введіть ім'я" aria-label="введіть ім'я"
+                       name="user-login"
+                       aria-describedby="login-addon" value="@Model.FormModel?.Login">
+            </div>
+        </div>
+        <div class="col">
+            <div class="input-group mb-3">
+                <span class="input-group-text"
+                      id="phone-addon"><i class="bi bi-person-vcard"></i></span>
+                <input type="text" class="form-control"
+                       placeholder="введіть номер телефону" aria-label="введіть номер телефону"
+                       name="user-phone"
+                       aria-describedby="phone-addon" value="@Model.FormModel?.Phone">
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="input-group mb-3">
+                <span class="input-group-text"
+                      id="email-addon"><i class="bi bi-envelope-at"></i></span>
+                <input type="text" class="form-control"
+                       placeholder="введіть email" aria-label="введіть email"
+                       name="user-email"
+                       aria-describedby="email-addon" value="@Model.FormModel?.Email">
+            </div>
+        </div>
+
+    </div>
+  
+
+
+    <div class="row">
+        <div class="col">
+            <div class="input-group mb-3">
+                <label class="input-group-text"
+                       for="avatar-input"><i class="bi bi-person-circle"></i></label>
+                <input type="file" class="form-control"
+                       placeholder="Аватарка" aria-label="Аватарка"
+                       name="signup-avatar"
+                       id="avatar-input">
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="repeat-addon"><i class="bi bi-envelope-at"></i></span>
+                <input type="password" class="form-control"
+                       placeholder="введіть пароль" aria-label="введіть пароль"
+                       name="signup-password"
+                       id="repeat-addon">
+            </div>
+        </div>
+                <div class="col">
+                    <div class="input-group mb-3">
+                <span class="input-group-text" id="repeat-addon"><i class="bi bi-unlock"></i></span>
+                <input type="password" class="form-control"
+                       placeholder="Повторіть пароль" aria-label="Повторіть пароль"
+                        name="signup-repeat"
+                        aria-describedby="repeat-addon">
+            </div>
+        </div>
+    </div>
+
+    <div calss="row">
+        <div class="col">
+            <button class="btn btn-success" type="submit">
+                Реєстрація
+            </button>
+        </div>
+    </div>
+</form>
+
+
+@if (Model.FormStatus == true)
+{
+    <div class="alert alert-success" role="alert">
+        Реєстрація пройшла успішно
+    </div>
+}
+@if (Model.FormStatus == false)
+{
+    <div class="alert alert-danger" role="alert">
+        Виникли помилки реєстрації
+        @Model.FormValidation?.LoginErrorMessage
+        @Model.FormValidation?.PhoneErrorMessage
+        @Model.FormValidation?.EmailErrorMessage
+        @Model.FormValidation?.PasswordErrorMessage
+        @Model.FormValidation?.RepeatErrorMessage
+        @Model.FormValidation?.AvatarErrorMessage
+    </div>
+}
