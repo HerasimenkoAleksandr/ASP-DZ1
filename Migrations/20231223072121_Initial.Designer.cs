@@ -3,6 +3,7 @@ using System;
 using ASP_DZ1.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ASP_DZ1.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20231223072121_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -26,14 +28,6 @@ namespace ASP_DZ1.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
-
-                    b.Property<string>("Avatar")
-                        .HasColumnType("longtext");
-
-                    b.Property<DateTime?>("DeleteDt")
-                        .HasColumnType("datetime(6)");
-
-
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("longtext");
@@ -42,25 +36,16 @@ namespace ASP_DZ1.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-
-                    b.Property<string>("PasswordSalt")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("PassworkDk")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
                     b.Property<string>("Phone")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<DateTime>("RegisterDt")
-                        .HasColumnType("datetime(6)");
+                    b.Property<int>("RegisterDT")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users", "ASP_DZ1");
-
+                    b.ToTable("User", "ASP_DZ1");
                 });
 #pragma warning restore 612, 618
         }
