@@ -1,4 +1,5 @@
 using ASP_DZ1.Data;
+using ASP_DZ1.Middleware;
 using ASP_DZ1.Services.Hash;
 using ASP_DZ1.Services.Validation;
 using Microsoft.EntityFrameworkCore;
@@ -36,7 +37,7 @@ builder.Services.AddDistributedMemoryCache();
 
 builder.Services.AddSession(options =>
 {
-    options.IdleTimeout = TimeSpan.FromSeconds(10);
+    options.IdleTimeout = TimeSpan.FromMinutes(5);
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
 });
@@ -60,6 +61,8 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.UseSession();
+
+app.UseMiddleware<AuthSessionMiddleware>();
 
 app.MapControllerRoute(
     name: "default",

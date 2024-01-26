@@ -33,11 +33,52 @@
                         </li>
                     </ul>
 
-                    <button type="button" class="btn btn-outline-secondary"
-                            data-bs-toggle="modal"
-                            data-bs-target="#authModal">
-                        <i class="bi bi-box-arrow-in-right"></i>
-                    </button>
+                    <div id="signout-message"  ></div>
+
+                    @*
+                    Перевіряємо чи автентифікований користувач,
+                    виводимо або аватарку (та кнопку виходу),
+                    або кнопку входу
+                    *@
+                    @if (Context.User.Identity?.IsAuthenticated ?? false)
+                    {
+                        String avatar = Context.User.Claims
+                        .First(claim => claim.Type == ClaimTypes.UserData)
+                        .Value;
+                        if (String.IsNullOrEmpty(avatar)) avatar = "no-photo.png";
+                        <a asp-controller="User" asp-action="Profile">
+                            <img src="/avatars/@(avatar)" class="nav-avatar" />
+                        </a>
+                        <button type="button"
+                                id="auth-signout-button"
+                                class="btn btn-outline-secondary">
+                            <i class="bi bi-box-arrow-right"></i>
+                        </button>
+                        /*
+                        Д.З. Вихід з авторизованого режиму
+                        - реалізувати метод SignOut у AuthController, прив'язати
+                        його до НТТР-методу DELETE
+                        - у методі видаляти з сесії помітку про ідентифікатор
+                        користувача та повертати статус (успішно чи не успішно)
+                        - у скрипті сайту (JS) додати для кнопки "вихід" обробник
+                        натиснення, реалізувати підтвердження виходу (так/ні)
+                        і надіслати запит методом DELETE до API.
+                        - провести аналіз статус-коду відповіді, у разі позитивного
+                        статусу перезавантажити сторінку (рекомендовано перейти
+                        на гарантовано "відкриту" сторінку - на головну).
+                        Інакше повідомити користувача про проблеми із сервером.
+                        */
+                    }
+                    else
+                    {
+                        <div id="signout-message"></div>
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-outline-secondary"
+                                data-bs-toggle="modal"
+                                data-bs-target="#authModal">
+                            <i class="bi bi-box-arrow-in-right"></i>
+                        </button>
+                    }
 
                 </div>
             </div>
@@ -56,20 +97,31 @@
     </footer>
 
 
+  
+
 
     <div class="modal fade" id="authModal" tabindex="-1" aria-labelledby="authModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="authModalLabel">Modal title</h5>
+                    <h5 class="modal-title" id="authModalLabel">Вхід у систему</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    ...
+                    <div class="mb-3">
+                        <label for="auth-login" class="form-label">Логін:</label>
+                        <input type="text" class="form-control" id="auth-login" name="login" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="auth-password" class="form-label">Пароль:</label>
+                        <input type="password" class="form-control" id="auth-password" name="password" required>
+                    </div>
                 </div>
+
                 <div class="modal-footer">
+                    <div id="auth-message" class="alert alert-danger visually-hidden" role="alert"></div>
                     <a asp-controller="Home" asp-action="homework3" class="btn btn-secondary">Реєстрація</a>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button id="auth-button" type="button" class="btn btn-primary">Увійти</button>
                 </div>
               
             </div>
