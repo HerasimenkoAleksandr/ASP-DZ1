@@ -1,6 +1,7 @@
 using ASP_DZ1.Data;
 using ASP_DZ1.Middleware;
 using ASP_DZ1.Services.Hash;
+
 using ASP_DZ1.Services.Validation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations;
@@ -17,12 +18,14 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddSingleton<IValidationService, MyValidationService>();
 
+
 builder.Services.AddSingleton<IHashService, Md5HashService>();
 
 String? connectionString =
     builder
     .Configuration
     .GetConnectionString("mystring");
+
 
 
 
