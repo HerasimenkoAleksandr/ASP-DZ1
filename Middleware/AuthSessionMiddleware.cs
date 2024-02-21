@@ -10,10 +10,12 @@ namespace ASP_DZ1.Middleware
         // посилання на наступну ланку (_next). Підключення Middleware
         // здійснюється у Program.cs
         private readonly RequestDelegate _next;
+        private readonly DataContext _dataContext;
 
         public AuthSessionMiddleware(RequestDelegate next)
         {
             _next = next;
+            
         }
 
         // є дві схеми включення Middleware - синхронна та асинхронна

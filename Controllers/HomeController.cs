@@ -2,15 +2,19 @@
 using ASP_DZ1.Models.Home;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using System;
+
 using ASP_DZ1.Services.Validation;
-using System.Security.Cryptography.Xml;
+
 using System.Text.Json;
 using ASP_DZ1.Data;
 using ASP_DZ1.Services.Hash;
-using ASP_DZ1.Data.Entities;
+
+
+
+
 
 namespace ASP_DZ1.Controllers
+
 {
     public class HomeController : Controller
     {
@@ -22,7 +26,8 @@ namespace ASP_DZ1.Controllers
 
         private readonly DataContext _dataContext;
 
-        public HomeController(ILogger<HomeController> logger, IValidationService validation, IHashService hashService, DataContext dataContext)
+
+        public HomeController(ILogger<HomeController> logger, IValidationService validation, IHashService hashService, DataContext dataContext = null)
         {
             _logger = logger;
             _validation = validation;
@@ -77,7 +82,7 @@ namespace ASP_DZ1.Controllers
             }
             else
             {
-                if(!_validation.IsNameValid(model.Login))
+                if (!_validation.IsNameValid(model.Login))
                 {
                     results.LoginErrorMessage = "Формат логіна не вірний";
                     isFormValid = false;
@@ -200,15 +205,15 @@ namespace ASP_DZ1.Controllers
         public IActionResult Task_two()
         {
 
-            ViewData["later"]= (char)('A' + new Random().Next(26));
-          
+            ViewData["later"] = (char)('A' + new Random().Next(26));
+
             return View();
         }
         public IActionResult Task_three()
         {
             return View();
         }
-       
+
         public IActionResult Task_four()
         {
             return View();
@@ -220,7 +225,7 @@ namespace ASP_DZ1.Controllers
 
         public ViewResult homework2()
         {
-            homework2FormModel ? formModel;
+            homework2FormModel? formModel;
 
             if (HttpContext.Session.Keys.Contains("formModel"))
             {
@@ -234,13 +239,13 @@ namespace ASP_DZ1.Controllers
             {
                 formModel = null!;
             }
-          
-            homework2ViewModel model= new()
+
+            homework2ViewModel model = new()
             {
                 FormModel = formModel
             };
 
-            
+
             if (model.FormModel != null || model.FormModel?.Login != null)
             {
 
@@ -255,9 +260,9 @@ namespace ASP_DZ1.Controllers
             }
 
 
-            if (model.FormModel != null ||  model.FormModel?.Email != null)
+            if (model.FormModel != null || model.FormModel?.Email != null)
             {
-          
+
                 ViewData["isNameE"] = _validation.IsMailValid(model.FormModel.Email);
             }
 
@@ -278,7 +283,7 @@ namespace ASP_DZ1.Controllers
                 );
             }
             return RedirectToAction(nameof(homework2));
-          
+
         }
 
 

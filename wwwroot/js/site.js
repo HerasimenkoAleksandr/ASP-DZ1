@@ -5,6 +5,9 @@
     const saveProfileButton = document.getElementById("profile-save-button");
     if (saveProfileButton) saveProfileButton.addEventListener('click', saveProfileButtonClick);
 
+    const deleteProfileButton = document.getElementById("profile-delete-button");
+    if (deleteProfileButton) deleteProfileButton.addEventListener('click', deleteProfileButtonClick);
+
     const signoutButton = document.getElementById("auth-signout-button");
     if (signoutButton) signoutButton.addEventListener('click',
         function () {
@@ -21,6 +24,21 @@
     
 
 });
+
+function deleteProfileButtonClick() {
+   
+    fetch(
+        `/user/DeleteProfile/`,
+        {
+            method: 'DELETE'
+        })
+        .then(r => r.json())
+        .then(j => {
+            console.log(j);
+            location.reload();
+        });
+    
+}
 
 function saveProfileButtonClick() {
     const nameInput = document.querySelector('input[name="profile-name"]');
@@ -91,11 +109,10 @@ function authButtonClick() {
                 window.location.reload();
             }
             else {  // 401
-                showAuthMessage( 5000);
+                showAuthMessage("Вхід відхилено" + login);
             }
         });
 }
-
 
 
 

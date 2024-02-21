@@ -88,6 +88,7 @@
     <div class="alert alert-success" role="alert">
         Реєстрація пройшла успішно
     </div>
+    @Model.FormValidation?.DBErrorMessage
 }
 @if (Model.FormStatus == false)
 {
@@ -99,5 +100,6 @@
         @Model.FormValidation?.PasswordErrorMessage
         @Model.FormValidation?.RepeatErrorMessage
         @Model.FormValidation?.AvatarErrorMessage
+      
     </div>
 }
