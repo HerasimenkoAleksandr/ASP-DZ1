@@ -5,7 +5,8 @@ using ASP_DZ1.Services.Hash;
 using ASP_DZ1.Services.Validation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations;
-using MySqlConnector;
+
+
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -20,18 +21,23 @@ builder.Services.AddSingleton<IValidationService, MyValidationService>();
 
 builder.Services.AddSingleton<IHashService, Md5HashService>();
 
+String? connectionString =
+    builder
+    .Configuration
+    .GetConnectionString("mystring");
 
-String? connectionString = builder.Configuration.GetConnectionString("PlanetScale");
 
-MySqlConnection connection = new MySqlConnection(connectionString);
 
-builder.Services.AddDbContext<DataContext>(options => options.UseMySql(
 
-    connection,
-    ServerVersion.AutoDetect(connection),
-    serverOptions=>serverOptions.MigrationsHistoryTable(tableName: HistoryRepository.DefaultTableName,
-    schema: "ASP_DZ1").SchemaBehavior(Pomelo.EntityFrameworkCore.MySql.Infrastructure.MySqlSchemaBehavior.Translate,
-    (schema, table)=>$"{schema}_{table}")));
+builder.Services.AddDbContext<DataContext>(options =>
+    options.UseSqlServer(
+        connectionString,
+        sqlServerOptions => sqlServerOptions.MigrationsHistoryTable(
+                tableName: HistoryRepository.DefaultTableName,
+        schema: "ASP_DZ1")
+    )
+);
+
 
 
 
@@ -65,6 +71,8 @@ app.UseAuthorization();
 app.UseSession();
 
 app.UseMiddleware<AuthSessionMiddleware>();
+
+
 
 app.MapControllerRoute(
     name: "default",
